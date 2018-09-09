@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 x:Class="WafferlyApp.AboutView">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="200"
+            DurationOut="100"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="true"/>
+    </pages:PopupPage.Animation>
+        <ScrollView VerticalOptions="Center" HorizontalOptions="Center" Padding="20" >
+            <!--<Button Image="close" />-->
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Start" Orientation="Vertical" BackgroundColor="White">
+            <!--<Image Aspect="AspectFill" Source="ezay_nwafar_logo.png" WidthRequest="200" HeightRequest="200"/>-->
+                <Label Text="About" FontSize="24" FontFamily="Arial" TextColor="Black"  Margin="5"/>
+                <StackLayout Orientation="Vertical" Padding="10">
+                    <Label Text="Wafferly App is an application for all people live in Qatar. Here you can find all home-needs offers and promotions You will be able to look for the cheapest product you may need and where you would find it" LineBreakMode="WordWrap"/>
+                    <Label Text="We promise to continue imporve the application in order to give you the best experience you love. Our team is always here for you" LineBreakMode="WordWrap"/>
+                 </StackLayout>
+                <Label Text="Contacts" FontSize="24"  Margin="5"/>
+                <StackLayout Padding="5">
+                    <StackLayout Orientation="Horizontal">
+                        <!--<Label Text="Website: " HorizontalOptions="Start"/>-->
+                        <Image Source="www" WidthRequest="28" HeightRequest="28" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
+                        <Label Text="http://www.wafferly.app" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <!--<Label Text="Email: " HorizontalOptions="Start"/>-->
+                    <Image Source="email" WidthRequest="28" HeightRequest="28" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
+                        <Label Text="app@wafferly.net" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <!--<Label Text="Whats'App: " HorizontalOptions="Start"/>-->
+                    <Image Source="whatsapp" WidthRequest="28" HeightRequest="28" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
+                        <Label Text="+974 7709 1515" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                    </StackLayout>
+                </StackLayout>
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center"  Padding="10">
+                        <Label Text="Version" FontSize="10"/>
+                        <Label x:Name="lblVersion" FontSize="8"/>
+                    </StackLayout>-->
+                <Button Text="Close" WidthRequest="100" Pressed="btnClose_Pressed" FontSize="20"
+                        Margin="0,0,0,20" VerticalOptions="End" BorderColor="Gray" />
+            </StackLayout>
+        </ScrollView>
+</pages:PopupPage>

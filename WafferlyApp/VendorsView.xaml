@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WafferlyApp.VendorsView"
+             NavigationPage.HasNavigationBar="false"
+             Title="Vendor Title">
+    <ContentPage.ToolbarItems>
+            <ToolbarItem Name="tbrItmAbout"
+                     Icon="about.png"
+                     Order="Default"
+                     Activated="About_Activated"
+                     Priority="1" />
+        <ToolbarItem Name="tbrItemCart"
+                     Icon="cart.png"
+                     Order="Default"
+                     Activated="Cart_Activated"
+                     Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Label Text="This is Vendors Veiw"/>
+    </ContentPage.Content>
+</ContentPage>

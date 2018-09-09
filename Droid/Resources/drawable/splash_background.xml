@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#fff" />
+    </item>
+    <item android:drawable="@drawable/ezay_nwafar_logo" android:gravity="center" android:width="200dp" android:height="200dp"/>
+  
+</layer-list>

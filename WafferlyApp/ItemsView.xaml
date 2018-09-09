@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WafferlyApp.ItemsView"
+             xmlns:ads="clr-namespace:WafferlyApp.Controls;assembly=WafferlyApp"
+        NavigationPage.HasNavigationBar="true" Title="Products List">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="tbrItmAbout" Icon="about.png" Text="About" Order="Default" Activated="About_Activated" Priority="1" />
+        <ToolbarItem Name="tbrItemCart" Icon="cart.png" Text="Cart" Order="Default" Activated="Cart_Activated" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <SearchBar HorizontalOptions="StartAndExpand" Placeholder="Search ..." x:Name="SearchItems" TextChanged="SearchBar_TextChanged" SearchButtonPressed="SearchBar_SearchButtonPressed">
+                <SearchBar.Margin>
+                    <OnPlatform x:TypeArguments="Thickness" iOS="0,15,0,0" Android="0,0,0,0">
+                    </OnPlatform>
+                </SearchBar.Margin>
+            </SearchBar>
+            <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ActivityIndicator x:Name="serviceInd" IsRunning="false" AbsoluteLayout.LayoutBounds="0.5, 0.5, 100, 100" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                <ListView x:Name="itemsListView" HasUnevenRows="true" IsPullToRefreshEnabled="true" Refreshing="listView_Refreshing" ItemSelected="listView_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <AbsoluteLayout  HorizontalOptions="FillAndExpand" Padding="5">
+                                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,.15,1" AbsoluteLayout.LayoutFlags="All" WidthRequest="64" HeightRequest="64" HorizontalOptions="Start">
+                                        <ActivityIndicator x:Name="itemInd" IsRunning="{Binding Source={x:Reference ItemImage}, Path=IsLoading}" AbsoluteLayout.LayoutBounds="0.5, 0.5, 50, 50" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                        <Image x:Name="ItemImage" Aspect="AspectFill" Source="{Binding ItemImagePath}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                                    </AbsoluteLayout>
+                                    <AbsoluteLayout AbsoluteLayout.LayoutBounds=".26,0,.37,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="64">
+                                        <Label AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Text="{Binding Title}" LineBreakMode="WordWrap" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" FontSize="18" FontFamily="Arial" />
+                                        <Label AbsoluteLayout.LayoutBounds="0,.6,1,1" AbsoluteLayout.LayoutFlags="All" Text="{Binding Vendor.Title}" LineBreakMode="NoWrap" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" FontSize="14" FontFamily="Arial" TextColor="Gray" />
+                                    </AbsoluteLayout>
+                                    <StackLayout AbsoluteLayout.LayoutBounds=".64,0,.15,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Amount}" LineBreakMode="NoWrap" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontSize="19" FontFamily="Arial" />
+                                        <Label Text="{Binding Unit}" LineBreakMode="NoWrap" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" FontSize="15" FontFamily="Arial" />
+                                    </StackLayout>
+                                    <StackLayout AbsoluteLayout.LayoutBounds=".77,0,.15,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Label Text="{Binding UnitPrice}" VerticalOptions="StartAndExpand" LineBreakMode="NoWrap" HorizontalOptions="EndAndExpand" FontSize="19" FontFamily="Arial" />
+                                        <Label Text="QAR" LineBreakMode="NoWrap" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" FontSize="15" FontFamily="Arial" />
+                                    </StackLayout>
+                                    <AbsoluteLayout AbsoluteLayout.LayoutBounds=".95,0,.15,1" AbsoluteLayout.LayoutFlags="All" WidthRequest="64" HeightRequest="64" HorizontalOptions="StartAndExpand">
+                                        <ActivityIndicator x:Name="discInd" IsRunning="{Binding Source={x:Reference Discounted}, Path=IsLoading}" AbsoluteLayout.LayoutBounds="0.5, 0.5, 50, 50" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                        <Image x:Name="Discounted" Aspect="AspectFill" WidthRequest="64" HeightRequest="64" HorizontalOptions="End" Source="{Binding Discount}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                                    </AbsoluteLayout>
+                                    <Label AbsoluteLayout.LayoutBounds="1,0,.03,1" AbsoluteLayout.LayoutFlags="All" x:Name="lblHasChild" WidthRequest="32" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" FontSize="14" FontFamily="Arial" TextColor="Gray" Text="◿" />
+                                </AbsoluteLayout>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Add to cart" Clicked="AddToCart_Clicked" />
+                                </ViewCell.ContextActions>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                </AbsoluteLayout>
+            </ScrollView>
+             <ads:AdControlView BackgroundColor="Black"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

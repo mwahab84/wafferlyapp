@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WafferlyApp.ItemDetailsView" Title="{Binding Title}">
+<ContentPage.ToolbarItems>
+            <ToolbarItem Name="tbrItmAbout"
+                     Icon="about.png"
+                     Order="Default"
+                     Activated="About_Activated"
+                     Priority="1" />
+        <ToolbarItem Name="tbrItemCart"
+                     Icon="cart.png"
+                     Order="Default"
+                     Activated="Cart_Activated"
+                     Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ScrollView.Padding>
+                <OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,0" Android="0,0,0,0" />
+            </ScrollView.Padding>
+            <RelativeLayout>
+                <Image x:Name="ItemImage" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=.33}" Aspect="AspectFill" Source="{Binding ItemImagePath}" />
+                <Image x:Name="offerImage" Source="{Binding Discount}" WidthRequest="60" HeightRequest="60" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ItemImage, Property=X, Factor=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=5}" />
+                <Label x:Name="offerDate" Text="{Binding OfferEndDate,StringFormat='Offer valid until {0:dd-MMM-yyyy}'}" HorizontalOptions="End" BackgroundColor="White" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ItemImage, Property=Width, Factor=1}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1,Constant=10}" />
+                <Button x:Name="imageCircleBack" BackgroundColor="White" HeightRequest="96" WidthRequest="96" BorderRadius="35" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=.5, Constant=-50}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,ElementName=ItemImage, Property=Height, Factor=1, Constant=-48}" Pressed="VendorLogo_Pressed" />
+                <ActivityIndicator x:Name="vendInd" IsRunning="{Binding Source={x:Reference btnVendor}, Path=IsLoading}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ItemImage, Property=Width, Factor=.5, Constant=-25}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=.50, Constant=160}" />
+                <Image x:Name="btnVendor" HeightRequest="88" WidthRequest="88" Source="{Binding Vendor.VendorLogoPath}" Aspect="AspectFill" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=imageCircleBack, Property=X, Factor=1, Constant=4}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,ElementName=ItemImage, Property=Height, Factor=1, Constant=-44}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="VendorLogo_Pressed" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="{Binding Vendor.Title}" FontAttributes="Bold" FontSize="22" HorizontalTextAlignment="Center" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=btnVendor, Property=Y, Factor=1, Constant=85}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+                <RelativeLayout HeightRequest="60" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Property=Height, ElementName=ItemImage, Factor=1, Constant=5}" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="FillAndExpand" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" Padding="5,0,5,5">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding UnitPrice, StringFormat='{00:F2}'}" FontAttributes="Bold" FontSize="20" />
+                            <Label Text="QAR" FontAttributes="Bold" FontSize="20" />
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="EndAndExpand">
+                            <Label Text="{Binding Amount}" FontAttributes="Bold" FontSize="20" />
+                            <Label Text="{Binding Unit}" FontAttributes="Bold" FontSize="20" />
+                        </StackLayout>
+                    </StackLayout>
+                </RelativeLayout>
+                <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" Padding="5,0,5,5" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Property=Y, ElementName=btnVendor, Factor=1, Constant=130}">
+                    <StackLayout HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                        <Label Text="Description:" FontAttributes="Bold" FontSize="22" />
+                        <Label Text="{Binding Desc}" FontSize="18" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <Label Text="Recipes:" FontAttributes="Bold" FontSize="22" />
+                        <Label Text="This feature will come soon! Stay tuned!" FontSize="18" />
+                    </StackLayout> 
+                    <StackLayout HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                        <Label Text="Tags:" FontAttributes="Bold" FontSize="22" />
+                        <Label Text="This feature will come soon! Stay tuned!" FontSize="18" />
+                    </StackLayout>
+                </StackLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
