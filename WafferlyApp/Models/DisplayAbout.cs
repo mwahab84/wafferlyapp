@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace BudgetSaver.Models
+namespace WafferlyApp.Models
 {
     public class DisplayAbout:Page
     {

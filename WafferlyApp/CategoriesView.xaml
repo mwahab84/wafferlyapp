@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WafferlyApp.CategoriesView" xmlns:ads="clr-namespace:WafferlyApp.Controls;assembly=WafferlyApp" NavigationPage.HasNavigationBar="true" Title="Category List">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Spacing="8" HeightRequest="24">
+            <Image Source="cart.png" MinimumWidthRequest="24" MinimumHeightRequest="24" WidthRequest="24" HeightRequest="24" Margin="8,0,8,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Cart_Activated" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="info.png" MinimumWidthRequest="24" MinimumHeightRequest="24" WidthRequest="24" HeightRequest="24">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="About_Activated" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <SearchBar HorizontalOptions="FillAndExpand" Placeholder="Find a category" x:Name="SearchCategories" TextChanged="SearchBar_TextChanged" SearchButtonPressed="SearchBar_SearchButtonPressed" FontSize="20" TextColor="#666666" HorizontalTextAlignment="Center" PlaceholderColor="#666666" Margin="-1,1.5,-1,-6"
+                BackgroundColor="#ffffff" CancelButtonColor="#FFEC7D6A">
+            </SearchBar>
+            <ListView  x:Name="specialOffersView" VerticalOptions="StartAndExpand" RowHeight="120" ItemSelected="listView_ItemSelected" BackgroundColor="#ffffff" SeparatorVisibility="None" HorizontalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                                        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Padding="0,0,0,1">
+                                        <Image x:Name="imgSpecialOffersCover" Aspect="AspectFill" Source="categorylistback.png" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Opacity="0.3" />
+                                        <StackLayout x:Name="overlayLayerSpecialOffers" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="#FFCD8BBF" Opacity="0.5">
+                                        </StackLayout>
+                                        <StackLayout x:Name="cellBodySpecialOffers" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                                                <Label Text="{Binding Title}" FontSize="26" FontAttributes="Bold" TextColor="#ffffff" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                                <Label Text="{Binding Desc}" FontSize="12" FontAttributes="Bold" LineBreakMode="WordWrap" TextColor="#666666" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout x:Name="detailsSpecialOffers" HorizontalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <Image x:Name="lblHasChildSpecialOffers" Aspect="AspectFit" WidthRequest="12" HeightRequest="45" Margin="0,0,15,0" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="detailswhite" />
+                                        </StackLayout>
+                                    </AbsoluteLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ScrollView VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="0,-5,0,0">
+                <AbsoluteLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" BackgroundColor="Red">
+                    <ActivityIndicator x:Name="serviceInd" IsRunning="false" AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75" AbsoluteLayout.LayoutFlags="PositionProportional" WidthRequest="100" HeightRequest="100" />
+                    <ListView x:Name="categoryListView" HasUnevenRows="false" RowHeight="100" IsPullToRefreshEnabled="true" Refreshing="listView_Refreshing" ItemSelected="listView_ItemSelected" BackgroundColor="#ffffff" SeparatorVisibility="None" HorizontalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Padding="0,0,0,1">
+                                        <Image x:Name="imgCategoryCover" Aspect="AspectFill" Source="categorylistback.png" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Opacity="0.3"/>
+                                        <StackLayout x:Name="overlayLayer" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="#FFCD8BBF" Opacity="0.9">
+                                        </StackLayout>
+                                        <StackLayout x:Name="cellBody" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                                                <Label Text="{Binding Title}" FontSize="26" FontAttributes="Bold" TextColor="#ffffff" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                                <Label Text="{Binding Desc}" FontSize="12" FontAttributes="Bold" LineBreakMode="WordWrap" TextColor="#666666" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout x:Name="details" HorizontalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <Image x:Name="imgHasChild" Aspect="AspectFit" WidthRequest="12" HeightRequest="45" Margin="0,0,15,0" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="detailswhite" />
+                                        </StackLayout>
+                                    </AbsoluteLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </AbsoluteLayout>
+            </ScrollView>
+            <ads:AdControlView BackgroundColor="#FFCD8BBF" Margin="0,-5,0,0"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

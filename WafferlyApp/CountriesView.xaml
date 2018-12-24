@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WafferlyApp.CountriesView" xmlns:ads="clr-namespace:WafferlyApp.Controls;assembly=WafferlyApp" NavigationPage.HasNavigationBar="true" Title="Country List">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Spacing="8" HeightRequest="24">
+            <Image Source="cart.png" MinimumWidthRequest="24" MinimumHeightRequest="24" WidthRequest="24" HeightRequest="24" Margin="8,0,8,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Cart_Activated" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="info.png" MinimumWidthRequest="24" MinimumHeightRequest="24" WidthRequest="24" HeightRequest="24">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="About_Activated" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <SearchBar HorizontalOptions="FillAndExpand" Placeholder="Explore your beloved country" x:Name="SearchVendors" TextChanged="SearchBar_TextChanged" SearchButtonPressed="SearchBar_SearchButtonPressed" FontSize="20" TextColor="#666666" HorizontalTextAlignment="Center" PlaceholderColor="#666666" Margin="-1,1.5,-1,-6"
+                BackgroundColor="#ffffff" CancelButtonColor="#FFEC7D6A">
+            </SearchBar>
+            <ScrollView VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                <AbsoluteLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" BackgroundColor="Red">
+                    <ActivityIndicator x:Name="serviceInd" IsRunning="false" AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75" AbsoluteLayout.LayoutFlags="PositionProportional" WidthRequest="100" HeightRequest="100" />
+                    <ListView x:Name="countryListView" HasUnevenRows="false" RowHeight="140" 
+                              IsPullToRefreshEnabled="true" Refreshing="listView_Refreshing" ItemSelected="listView_ItemSelected" BackgroundColor="#ffffff" SeparatorVisibility="None" HorizontalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Padding="0,0,0,1">
+                                        <Image x:Name="imgCountryCover" Aspect="AspectFill" Source="countrylistback.png" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Opacity="0.3"/>
+                                        <StackLayout x:Name="overlayLayer" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="#FFAAD174" Opacity="0.9">
+                                        </StackLayout>
+                                        <StackLayout x:Name="cellBody" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                                                <AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="85" HeightRequest="85" Margin="0,10,0,0">
+                                                    <Frame CornerRadius="0" Padding="5" BorderColor="#969594" VerticalOptions="Center" HorizontalOptions="Center" HasShadow="false" WidthRequest="85" HeightRequest="85" BackgroundColor="Transparent"
+                                                           AbsoluteLayout.LayoutBounds="0,0,85,85"
+                                                           AbsoluteLayout.LayoutFlags="None">
+                                                    <!--<ActivityIndicator x:Name="itemInd" IsRunning="{Binding Source={x:Reference ItemImage}, Path=IsLoading}" AbsoluteLayout.LayoutBounds="0.5, 0.5, 50, 50" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                                -->
+                                                </Frame>
+                                                    <Image x:Name="countryFlagPath" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="85" HeightRequest="85" Aspect="AspectFit" Source="{Binding CountryFlagPath}" 
+                                                           AbsoluteLayout.LayoutBounds="5,5,75,75"
+                                                           AbsoluteLayout.LayoutFlags="None"/>
+                                                </AbsoluteLayout>
+                                                <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold" TextColor="#ffffff" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout x:Name="details" HorizontalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <Image x:Name="imgHasChild" Aspect="AspectFit" WidthRequest="12" HeightRequest="45" Margin="0,0,15,0" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="detailswhite" />
+                                        </StackLayout>
+                                    </AbsoluteLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </AbsoluteLayout>
+            </ScrollView>
+            <ads:AdControlView BackgroundColor="#FFAAD174" Margin="0,-5,0,0"/>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

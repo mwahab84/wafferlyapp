@@ -1,22 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WafferlyApp.VendorsView"
-             NavigationPage.HasNavigationBar="false"
-             Title="Vendor Title">
-    <ContentPage.ToolbarItems>
-            <ToolbarItem Name="tbrItmAbout"
-                     Icon="about.png"
-                     Order="Default"
-                     Activated="About_Activated"
-                     Priority="1" />
-        <ToolbarItem Name="tbrItemCart"
-                     Icon="cart.png"
-                     Order="Default"
-                     Activated="Cart_Activated"
-                     Priority="0" />
-    </ContentPage.ToolbarItems>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WafferlyApp.VendorsView" xmlns:ads="clr-namespace:WafferlyApp.Controls;assembly=WafferlyApp" NavigationPage.HasNavigationBar="true" Title="Vendor List">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Spacing="8" HeightRequest="24">
+            <Image Source="cart.png" MinimumWidthRequest="24" MinimumHeightRequest="24" WidthRequest="24" HeightRequest="24" Margin="8,0,8,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Cart_Activated" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="info.png" MinimumWidthRequest="24" MinimumHeightRequest="24" WidthRequest="24" HeightRequest="24">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="About_Activated" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
-        <Label Text="This is Vendors Veiw"/>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <SearchBar HorizontalOptions="FillAndExpand" Placeholder="Find your desired vendor" x:Name="SearchVendors" TextChanged="SearchBar_TextChanged" SearchButtonPressed="SearchBar_SearchButtonPressed" FontSize="20" TextColor="#666666" HorizontalTextAlignment="Center" PlaceholderColor="#666666" Margin="-1,1.5,-1,-6"
+                BackgroundColor="#ffffff" CancelButtonColor="#FFEC7D6A">
+                <!---<SearchBar.Margin>
+                    <OnPlatform x:TypeArguments="Thickness"  iOS="0,5,0,0" Android="0,0,0,0">
+                    </OnPlatform>
+                </SearchBar.Margin>-->
+            </SearchBar>
+            <ScrollView VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                <AbsoluteLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" BackgroundColor="Red">
+                    <ActivityIndicator x:Name="serviceInd" IsRunning="false" AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75" AbsoluteLayout.LayoutFlags="PositionProportional" WidthRequest="100" HeightRequest="100" />
+                    <ListView x:Name="vendorsListView" HasUnevenRows="false" RowHeight="160" IsPullToRefreshEnabled="true" Refreshing="listView_Refreshing" ItemSelected="listView_ItemSelected" BackgroundColor="#ffffff" SeparatorVisibility="None" HorizontalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" Padding="0,0,0,1">
+                                        <Image x:Name="imgVendorCover" Aspect="AspectFill" Source="{Binding VendorCoverPath}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Opacity="0.4"/>
+                                        <StackLayout x:Name="overlayLayer" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="#FF7DC5DC" Opacity="0.9">
+                                        </StackLayout>
+                                        <StackLayout x:Name="cellBody" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                                                <AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="75" HeightRequest="75">
+                                                    <Frame CornerRadius="0" Padding="5" BorderColor="#969594" VerticalOptions="Center" HorizontalOptions="Center" HasShadow="false" WidthRequest="75" HeightRequest="75" BackgroundColor="Transparent"
+                                                           AbsoluteLayout.LayoutBounds="0,0,75,75"
+                                                           AbsoluteLayout.LayoutFlags="None">
+                                                    <!--<ActivityIndicator x:Name="itemInd" IsRunning="{Binding Source={x:Reference ItemImage}, Path=IsLoading}" AbsoluteLayout.LayoutBounds="0.5, 0.5, 50, 50" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                                -->
+<!--                                                    <Image x:Name="vendorLogoPath" Aspect="AspectFit" Source="{Binding VendorLogoPath}" />-->
+                                                </Frame>
+                                                    <Image x:Name="vendorLogoPath" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="65" HeightRequest="65" Aspect="AspectFit" Source="{Binding VendorLogoPath}" 
+                                                           AbsoluteLayout.LayoutBounds="5,5,65,65"
+                                                           AbsoluteLayout.LayoutFlags="None"/>
+                                                </AbsoluteLayout>
+                                                <Label Text="{Binding Title}" FontSize="22" FontAttributes="Bold" TextColor="#ffffff" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                                <Label Text="{Binding Desc}" FontSize="12" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="#666666" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                            <!--                                                 <Image x:Name="lblHasChild" Aspect="AspectFit" WidthRequest="12" HeightRequest="45" Margin="0,0,15,0" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="detailswhite" />-->
+                                        </StackLayout>
+                                        <StackLayout x:Name="details" HorizontalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                                            <Image x:Name="imgHasChild" Aspect="AspectFit" WidthRequest="12" HeightRequest="45" Margin="0,0,15,0" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Source="detailswhite" />
+                                        </StackLayout>
+                                    </AbsoluteLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </AbsoluteLayout>
+            </ScrollView>
+            <ads:AdControlView BackgroundColor="#FF7DC5DC" Margin="0,-5,0,0"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
